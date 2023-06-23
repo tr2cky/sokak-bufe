@@ -25,7 +25,12 @@ const IndexPage = () => {
           "foto": foto.asset->url,
           fiyat
         }`);
-        setUrunler(fetchedUrunler);
+        let sortedUrunler = fetchedUrunler.sort((a, b) => {
+          const dateA = new Date(a._createdAt);
+          const dateB = new Date(b._createdAt);
+          return dateA - dateB;
+        });
+        setUrunler(sortedUrunler);
       } catch (error) {
         console.error("Error fetching urunler:", error);
       }
@@ -55,15 +60,15 @@ const IndexPage = () => {
               <h2 className="text-3xl font-extrabold text-gray-900">Menü</h2>
               {/* Search field */}
             </div>
-              <div className="mt-8">
-                <input
-                  type="text"
-                  placeholder="Ne çekmişti canın?"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                />
-              </div>
+            <div className="mt-8">
+              <input
+                type="text"
+                placeholder="Ne çekmişti canın?"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
             {/* Menu items */}
             <div className="mt-8 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
               {filteredUrunler.map((urun) => (
