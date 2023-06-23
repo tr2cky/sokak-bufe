@@ -1,0 +1,14 @@
+export const schema = {
+  types: [{
+    name: 'pet',
+    type: 'document',
+      title: 'Pet',
+    fields: [
+      {
+        name: 'name',
+        type: 'string',
+        title: 'Name'
+      }
+    ]
+  }],
+}
