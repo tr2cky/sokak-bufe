@@ -8,7 +8,7 @@ export const schema = {
         name: 'name',
         type: 'string',
         title: 'İsim',
-        validation: Rule => Rule.required()
+        require
       },
       {
         name: 'desc',
