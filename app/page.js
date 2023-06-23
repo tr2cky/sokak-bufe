@@ -92,7 +92,7 @@ const IndexPage = () => {
                       </p>
                     </div>
                     <div className="mt-6 flex items-center">
-                      <span className="text-xl font-semibold text-gray-900">{urun.fiyat ? urun.fiyat : ''}</span>
+                      <span className="text-xl font-semibold text-gray-900">{urun.fiyat ? urun.fiyat + ' TL' : ''}</span>
                     </div>
                   </div>
                 </div>
