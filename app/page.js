@@ -12,7 +12,7 @@ const client = createClient({
 
 const IndexPage = () => {
   const [urunler, setUrunler] = useState([]);
-
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchUrunler = async () => {
@@ -34,6 +34,11 @@ const IndexPage = () => {
     fetchUrunler();
   }, []);
 
+  // Filter the urunler based on the search term
+  const filteredUrunler = urunler.filter((urun) =>
+    urun.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       {/* Navbar */}
@@ -43,21 +48,36 @@ const IndexPage = () => {
       </div>
       {/* Main content */}
       <main>
-
         {/* Menu section */}
         <section className="bg-white py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h2 className="text-3xl font-extrabold text-gray-900">Menü</h2>
+              {/* Search field */}
             </div>
+              <div className="mt-8">
+                <input
+                  type="text"
+                  placeholder="Ne çekmişti canın?"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                />
+              </div>
             {/* Menu items */}
-            <div className="mt-16 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
-
-              {urunler.map((urun) => (
-                <div className="flex flex-col rounded-lg shadow-lg overflow-hidden">
+            <div className="mt-8 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
+              {filteredUrunler.map((urun) => (
+                <div className="flex flex-col rounded-lg shadow-lg overflow-hidden" key={urun._id}>
                   <div className="flex-shrink-0">
-
-                    {urun.foto && <Image className="h-48 w-full object-cover" src={urun.foto} alt={urun.name} width={500} height={500} />}
+                    {urun.foto && (
+                      <Image
+                        className="h-48 w-full object-cover"
+                        src={urun.foto}
+                        alt={urun.name}
+                        width={500}
+                        height={500}
+                      />
+                    )}
                   </div>
                   <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                     <div className="flex-1">
@@ -72,8 +92,6 @@ const IndexPage = () => {
                   </div>
                 </div>
               ))}
-
-
             </div>
           </div>
         </section>
