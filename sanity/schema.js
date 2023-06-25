@@ -24,6 +24,12 @@ export const schema = {
         name: 'fiyat',
         type: 'number',
         title: 'Fiyat'
+      },
+      {
+        name: 'categories',
+        type: 'array',
+        title: 'Kategoriler',
+        of: [{type: 'string'}],
       }
     ]
   },
