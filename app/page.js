@@ -85,6 +85,9 @@ const IndexPage = () => {
   const sortedCategories = [...new Set(formattedCategories)];
 
   const normalizeString = (str) => {
+    if (typeof str !== "string") {
+      return "";
+    }
     return str
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -93,16 +96,20 @@ const IndexPage = () => {
   };
 
 
+
   const filteredUrunler = urunler.filter((urun) => {
     const matchesSearchTerm =
-      urun.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      urun.desc.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (urun.name && urun.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (urun.desc && urun.desc.toLowerCase().includes(searchTerm.toLowerCase())) ||
       (urun.categories && urun.categories.some(category => normalizeString(category).includes(normalizeString(searchTerm))));
-
-    const matchesCategory = selectedCategory ? (urun.categories && urun.categories.some(category => normalizeString(category) === normalizeString(selectedCategory))) : true;
-
+  
+    const matchesCategory = selectedCategory ? 
+      (urun.categories && urun.categories.some(category => normalizeString(category) === normalizeString(selectedCategory))) : 
+      true;
+  
     return matchesSearchTerm && matchesCategory;
   });
+  
 
 
 
